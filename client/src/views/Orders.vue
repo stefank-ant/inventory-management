@@ -8,7 +8,7 @@
     <div v-if="loading" class="loading">{{ t('common.loading') }}</div>
     <div v-else-if="error" class="error">{{ error }}</div>
     <div v-else>
-      <div class="stats-grid">
+      <div class="card-grid">
         <div class="stat-card success">
           <div class="stat-label">{{ t('status.delivered') }}</div>
           <div class="stat-value">{{ getOrdersByStatus('Delivered').length }}</div>
@@ -172,6 +172,11 @@ export default {
 </script>
 
 <style scoped>
+/* Separate the stat-card grid from the orders table card below it */
+.card-grid {
+  margin-bottom: var(--space-6);
+}
+
 /* Fixed table layout to prevent column shifting */
 .orders-table {
   table-layout: fixed;

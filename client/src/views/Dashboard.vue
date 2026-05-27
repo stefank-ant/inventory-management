@@ -10,8 +10,8 @@
       <!-- Key Performance Indicators -->
       <div class="kpi-section">
         <h3 class="section-title">{{ t('dashboard.kpi.title') }}</h3>
-        <div class="kpi-grid">
-          <div class="kpi-card">
+        <div class="card-grid" style="--grid-min:240px">
+          <div class="card card--compact kpi-card">
             <div class="kpi-header">
               <span class="kpi-label">{{ t('dashboard.kpi.inventoryTurnover') }}</span>
             </div>
@@ -22,7 +22,7 @@
             </div>
           </div>
 
-          <div class="kpi-card">
+          <div class="card card--compact kpi-card">
             <div class="kpi-header">
               <span class="kpi-label">{{ t('dashboard.kpi.ordersFulfilled') }}</span>
             </div>
@@ -33,7 +33,7 @@
             </div>
           </div>
 
-          <div class="kpi-card">
+          <div class="card card--compact kpi-card">
             <div class="kpi-header">
               <span class="kpi-label">{{ t('dashboard.kpi.orderFillRate') }}</span>
             </div>
@@ -44,7 +44,7 @@
             </div>
           </div>
 
-          <div class="kpi-card">
+          <div class="card card--compact kpi-card">
             <div class="kpi-header">
               <span class="kpi-label">{{ t(selectedPeriod === 'all' ? 'dashboard.kpi.revenueYTD' : 'dashboard.kpi.revenueMTD') }}</span>
             </div>
@@ -55,7 +55,7 @@
             </div>
           </div>
 
-          <div class="kpi-card">
+          <div class="card card--compact kpi-card">
             <div class="kpi-header">
               <span class="kpi-label">{{ t('dashboard.kpi.avgProcessingTime') }}</span>
             </div>
@@ -750,19 +750,6 @@ export default {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 1rem;
-}
-
-.kpi-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
-}
-
-.kpi-card {
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 1rem;
 }
 
 .kpi-header {

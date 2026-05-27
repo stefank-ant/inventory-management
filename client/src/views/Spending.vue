@@ -9,7 +9,7 @@
     <div v-else-if="error" class="error">{{ error }}</div>
     <div v-else>
       <!-- Revenue & Financial KPIs -->
-      <div class="stats-grid-finance">
+      <div class="card-grid stats-grid-finance" style="--grid-min:240px">
         <div class="stat-card revenue-card">
           <div class="stat-label">{{ t('finance.totalRevenue') }}</div>
           <div class="stat-value">{{ formatCurrency(revenueMetrics.totalRevenue) }}</div>
@@ -102,7 +102,7 @@
         </div>
       </div>
 
-      <div class="two-column-grid">
+      <div class="card-grid card-grid--chart">
         <!-- Category Spending Breakdown -->
         <div class="card">
           <div class="card-header">
@@ -544,10 +544,7 @@ export default {
 .legend-dot.cost-color { background: #ef4444; }
 
 .stats-grid-finance {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-8);
 }
 
 .revenue-card {
@@ -690,12 +687,6 @@ export default {
   font-size: 0.75rem;
   font-weight: 600;
   color: #64748b;
-}
-
-.two-column-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-  gap: 1.75rem;
 }
 
 .category-list {

@@ -1,0 +1,318 @@
+/*
+ * Design tokens for the Factory Inventory Management System.
+ *
+ * Seeded from the app's de-facto palette (hand-copied Tailwind slate/blue/status hexes)
+ * so adopting tokens causes ZERO visual change on first pass — values are identical,
+ * only their definition is centralized.
+ *
+ * USAGE (Phase A of the saas-ui-redesign skill):
+ *   1. Copy this file verbatim to  client/src/assets/theme.css
+ *   2. Add  import './assets/theme.css'  as the FIRST import in client/src/main.js
+ *      (main.js currently imports no CSS — this is the single global injection point).
+ *
+ * WHY :root works everywhere — CSS custom properties INHERIT through the DOM and are not
+ * blocked by Vue's <style scoped> rewriting. Every component, scoped or not, can read these
+ * tokens with no per-file import. (Contrast: a scoped `.card { }` rule DOES override a global
+ * `.card { }` via higher specificity — see the skill's "scoped-specificity trap" gotcha.)
+ */
+
+:root {
+  /* ---- Neutral ramp (slate) ---------------------------------------------- */
+  --color-slate-950: #0f172a;
+  --color-slate-900: #1e293b;
+  --color-slate-800: #334155;
+  --color-slate-700: #475569;
+  --color-slate-600: #64748b;
+  --color-slate-500: #94a3b8;
+  --color-slate-400: #cbd5e1;
+  --color-slate-300: #e2e8f0;
+  --color-slate-200: #f1f5f9;
+  --color-slate-100: #f8fafc;
+
+  /* ---- Semantic surfaces & text ------------------------------------------ */
+  --color-bg: #f8fafc;            /* page background */
+  --color-surface: #ffffff;        /* cards, sidebar, modals */
+  --color-border: #e2e8f0;
+  --color-border-strong: #cbd5e1;
+  --color-text: #0f172a;           /* headings / primary */
+  --color-text-muted: #64748b;     /* secondary */
+  --color-text-subtle: #94a3b8;    /* placeholder / icon */
+
+  /* ---- Brand (blue) ------------------------------------------------------- */
+  --color-primary: #2563eb;
+  --color-primary-hover: #1e40af;
+  --color-primary-bright: #3b82f6;
+  --color-primary-bg: #eff6ff;
+  --color-primary-bg-strong: #dbeafe;
+
+  /* ---- Status ramps (surface bg + readable text) ------------------------- */
+  --color-success: #10b981;
+  --color-success-strong: #059669;
+  --color-success-bg: #d1fae5;
+  --color-success-text: #065f46;
+  --color-warning: #f59e0b;
+  --color-warning-bg: #fed7aa;
+  --color-warning-text: #92400e;
+  --color-danger: #ef4444;
+  --color-danger-strong: #dc2626;
+  --color-danger-bg: #fecaca;
+  --color-danger-text: #991b1b;
+  --color-info-bg: #dbeafe;
+  --color-info-text: #1e40af;
+
+  /* ---- Gradients (existing recurring pairs) ------------------------------ */
+  --gradient-brand: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  --gradient-accent: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+  /* ---- Chart series (inline-SVG charts; ~5 recurring hexes) -------------- */
+  --chart-1: #3b82f6;
+  --chart-2: #60a5fa;
+  --chart-3: #2563eb;
+  --chart-4: #10b981;
+  --chart-5: #f59e0b;
+  --chart-grid: #e2e8f0;
+
+  /* ---- Spacing — strict 4/8px grid -------------------------------------- */
+  /* Two half-steps (1-5, 2-5) absorb the off-grid one-offs that exist today
+     (0.4rem, 0.313rem, 0.625rem) without re-introducing arbitrary values. */
+  --space-1: 0.25rem;     /*  4px */
+  --space-1-5: 0.375rem;  /*  6px */
+  --space-2: 0.5rem;      /*  8px */
+  --space-2-5: 0.625rem;  /* 10px */
+  --space-3: 0.75rem;     /* 12px */
+  --space-4: 1rem;        /* 16px */
+  --space-5: 1.25rem;     /* 20px */
+  --space-6: 1.5rem;      /* 24px */
+  --space-8: 2rem;        /* 32px */
+  --space-10: 2.5rem;     /* 40px */
+  --space-12: 3rem;       /* 48px */
+
+  /* ---- Radius ------------------------------------------------------------ */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+  --radius-card: var(--radius-xl);   /* canonical card radius = 12px */
+
+  /* ---- Shadow ----------------------------------------------------------- */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+  --shadow-modal: 0 20px 50px rgba(0, 0, 0, 0.15);
+
+  /* ---- Type scale (maps the 9 existing ad-hoc sizes) -------------------- */
+  --font-xs: 0.75rem;     /* 12px */
+  --font-sm: 0.813rem;    /* 13px */
+  --font-base: 0.875rem;  /* 14px */
+  --font-md: 0.938rem;    /* 15px */
+  --font-lg: 1.125rem;    /* 18px */
+  --font-xl: 1.25rem;     /* 20px */
+  --font-2xl: 1.375rem;   /* 22px */
+  --font-3xl: 1.875rem;   /* 30px */
+  --font-4xl: 2.25rem;    /* 36px */
+
+  /* ---- Font weights ----------------------------------------------------- */
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Font family: system stack. The app references 'Inter' but never loads a webfont,
+     so it already renders in the system stack — this token makes that honest.
+     To truly use Inter later: `npm i @fontsource/inter`, import it in main.js, and
+     prepend 'Inter', here. Treat that as an explicit opt-in, not a silent half-state. */
+  --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  --font-family-mono: 'Monaco', 'Courier New', monospace;
+
+  /* ---- Layout ----------------------------------------------------------- */
+  --sidebar-width: 248px;
+  --sidebar-width-collapsed: 64px;
+  --content-max-width: 1600px;
+
+  /* ---- Transitions ------------------------------------------------------ */
+  --transition-fast: all 0.15s ease;
+  --transition-base: all 0.2s ease;
+
+  /* ---- z-index scale (single source of truth for stacking) -------------- */
+  --z-filterbar: 90;
+  --z-sidebar-overlay: 99;
+  --z-sidebar: 100;
+  --z-dropdown: 1000;
+  --z-modal: 2000;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Responsive grid utility — replaces the scattered grid-template-columns      */
+/* declarations whose minmax() varied {200,220,240,250,280,320,450}px.        */
+/* Views set --grid-min inline to pick a tier (default 280px).                 */
+/*   <div class="card-grid">                 → 280px tier                      */
+/*   <div class="card-grid" style="--grid-min:240px">  → KPI density           */
+/*   <div class="card-grid card-grid--wide"> → 320px (Demand)                  */
+/*   <div class="card-grid card-grid--chart">→ 450px (Spending charts)         */
+/* -------------------------------------------------------------------------- */
+.card-grid {
+  display: grid;
+  gap: var(--space-5);
+  grid-template-columns: repeat(auto-fit, minmax(var(--grid-min, 280px), 1fr));
+}
+.card-grid--wide { --grid-min: 320px; }
+.card-grid--chart { --grid-min: 450px; }
+
+/* -------------------------------------------------------------------------- */
+/* Canonical UI primitives (Phase D).                                          */
+/* SINGLE source of truth for cards, stat cards, tables, badges and status     */
+/* blocks. Previously these were forked in App.vue's global <style> AND        */
+/* re-declared in several views' scoped styles (where higher specificity made  */
+/* the forks win). Defining them here — and deleting the forks — means every   */
+/* view shares one token-based definition.                                     */
+/* -------------------------------------------------------------------------- */
+
+/* ---- Card ---------------------------------------------------------------- */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--space-6);
+  margin-bottom: var(--space-5);
+  box-shadow: var(--shadow-sm);
+}
+.card--flush { padding: 0; }                /* full-bleed table cards */
+.card--compact { padding: var(--space-4); } /* KPI density */
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+.card-title {
+  font-size: var(--font-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* ---- Stat card ----------------------------------------------------------- */
+.stat-card {
+  background: var(--color-surface);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  transition: var(--transition-base);
+}
+.stat-card:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-md);
+}
+.stat-label {
+  color: var(--color-text-muted);
+  font-size: var(--font-base);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--space-2-5);
+}
+.stat-value {
+  font-size: var(--font-4xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+  letter-spacing: -0.025em;
+}
+.stat-card.warning .stat-value { color: var(--color-warning); }
+.stat-card.success .stat-value { color: var(--color-success-strong); }
+.stat-card.danger .stat-value  { color: var(--color-danger-strong); }
+.stat-card.info .stat-value    { color: var(--color-primary); }
+
+/* ---- Page header --------------------------------------------------------- */
+.page-header {
+  margin-bottom: var(--space-6);
+}
+.page-header h2 {
+  font-size: var(--font-3xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+  margin-bottom: var(--space-1-5);
+  letter-spacing: -0.025em;
+}
+.page-header p {
+  color: var(--color-text-muted);
+  font-size: var(--font-md);
+}
+
+/* ---- Tables -------------------------------------------------------------- */
+.table-container {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+thead {
+  background: var(--color-slate-100);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+th {
+  text-align: left;
+  padding: var(--space-2) var(--space-3);
+  font-weight: var(--weight-semibold);
+  color: var(--color-slate-700);
+  font-size: var(--font-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+td {
+  padding: var(--space-2) var(--space-3);
+  border-top: 1px solid var(--color-slate-200);
+  color: var(--color-slate-800);
+  font-size: var(--font-base);
+}
+tbody tr {
+  transition: background-color 0.15s ease;
+}
+tbody tr:hover {
+  background: var(--color-slate-100);
+}
+
+/* ---- Badges -------------------------------------------------------------- */
+.badge {
+  display: inline-block;
+  padding: var(--space-1-5) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-xs);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+.badge.success,
+.badge.increasing { background: var(--color-success-bg); color: var(--color-success-text); }
+.badge.warning,
+.badge.medium     { background: var(--color-warning-bg); color: var(--color-warning-text); }
+.badge.danger,
+.badge.decreasing,
+.badge.high       { background: var(--color-danger-bg);  color: var(--color-danger-text); }
+.badge.info,
+.badge.stable,
+.badge.low        { background: var(--color-info-bg);    color: var(--color-info-text); }
+
+/* ---- Status blocks ------------------------------------------------------- */
+.loading {
+  text-align: center;
+  padding: var(--space-12);
+  color: var(--color-text-muted);
+  font-size: var(--font-md);
+}
+.error {
+  background: var(--color-danger-bg);
+  border: 1px solid var(--color-danger);
+  color: var(--color-danger-text);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  margin: var(--space-4) 0;
+  font-size: var(--font-md);
+}

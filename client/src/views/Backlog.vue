@@ -8,7 +8,7 @@
     <div v-if="loading" class="loading">Loading backlog...</div>
     <div v-else-if="error" class="error">{{ error }}</div>
     <div v-else>
-      <div class="stats-grid">
+      <div class="card-grid">
         <div class="stat-card danger">
           <div class="stat-label">High Priority</div>
           <div class="stat-value">{{ getBacklogByPriority('high').length }}</div>
