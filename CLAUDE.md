@@ -38,11 +38,20 @@ uv run python main.py
 # Frontend
 cd client
 npm install && npm run dev
+
+# Tests (backend only; pytest rootdir is tests/)
+cd tests && uv run pytest -v
 ```
+
+Both servers at once (auto-installs deps): `./scripts/start.sh` — stop with `./scripts/stop.sh`
 
 ## Key Patterns
 
-**Filter System**: 4 filters (Time Period, Warehouse, Category, Order Status) apply to all data via query params
+**Filter System**: filters apply via query params (case-insensitive; omit or pass `all` to skip a filter)
+- **warehouse**: San Francisco, London, Tokyo
+- **category**: Circuit Boards, Sensors, Power Supplies, Connectors, Mechanical Components
+- **status**: Delivered, Shipped, Processing, Backordered
+- **month**: `YYYY-MM` (e.g. `2025-09`) or quarter `Q1-2025`..`Q4-2025`
 **Data Flow**: Vue filters → `client/src/api.js` → FastAPI → In-memory filtering → Pydantic validation → Computed properties
 **Reactivity**: Raw data in refs (`allOrders`, `inventoryItems`), derived data in computed properties
 
@@ -59,13 +68,12 @@ npm install && npm run dev
 3. Update Pydantic models when changing JSON data structure
 4. Inventory filters don't support month (no time dimension)
 5. Revenue goals: $800K/month single, $9.6M YTD all months
+6. Frontend `api.js` calls `/api/tasks*` and `/api/purchase-orders*` — NOT implemented in the backend (return 404). In-progress work on the `new_features` branch, not bugs to fix.
+7. Do NOT run `server/generate_data.py` — it's stale and overwrites `orders.json` with mismatched warehouse/category values (A/B/C, Widgets) that break the app and tests.
 
-## File Locations
-- Views: `client/src/views/*.vue`
-- API Client: `client/src/api.js`
-- Backend: `server/main.py`, `server/mock_data.py`
-- Data: `server/data/*.json`
-- Styles: `client/src/App.vue`
+## Non-obvious locations
+- Global styles + nav live in `client/src/App.vue` (not a separate stylesheet)
+- All frontend API calls are centralized in `client/src/api.js`
 
 ## Design System
 - Colors: Slate/gray (#0f172a, #64748b, #e2e8f0)

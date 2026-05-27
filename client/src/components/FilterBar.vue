@@ -1,6 +1,10 @@
 <template>
   <div class="filters-bar">
     <div class="filters-container">
+      <button class="mobile-menu-btn" @click="toggleMobile" aria-label="Open menu">
+        <NavIcon name="menu" />
+      </button>
+
       <div class="filters-grid">
         <div class="filter-group">
           <label>{{ t('filters.timePeriod') }}</label>
@@ -72,9 +76,14 @@
 <script>
 import { useFilters } from '../composables/useFilters'
 import { useI18n } from '../composables/useI18n'
+import { useSidebar } from '../composables/useSidebar'
+import NavIcon from './icons/NavIcon.vue'
 
 export default {
   name: 'FilterBar',
+  components: {
+    NavIcon
+  },
   setup() {
     const {
       selectedPeriod,
@@ -86,6 +95,7 @@ export default {
     } = useFilters()
 
     const { t } = useI18n()
+    const { toggleMobile } = useSidebar()
 
     return {
       t,
@@ -94,7 +104,8 @@ export default {
       selectedCategory,
       selectedStatus,
       hasActiveFilters,
-      resetFilters
+      resetFilters,
+      toggleMobile
     }
   }
 }
@@ -106,17 +117,48 @@ export default {
   border-bottom: 1px solid #e2e8f0;
   padding: 0.75rem 0;
   position: sticky;
-  top: 70px;
+  top: 0;
   z-index: 90;
 }
 
 .filters-container {
-  max-width: 1600px;
+  max-width: var(--content-max-width);
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.mobile-menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1-5);
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: var(--transition-base);
+  flex-shrink: 0;
+}
+
+.mobile-menu-btn:hover {
+  background: var(--color-slate-100);
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+}
+
+.mobile-menu-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: inline-flex;
+  }
 }
 
 .filters-grid {
@@ -140,7 +182,7 @@ export default {
 }
 
 .filter-select {
-  padding: 0.4rem 0.75rem;
+  padding: var(--space-1-5) var(--space-3);
   border: 1px solid #cbd5e1;
   border-radius: 6px;
   font-size: 0.813rem;
@@ -166,7 +208,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.4rem;
+  padding: var(--space-1-5);
   background: white;
   border: 1px solid #e2e8f0;
   border-radius: 6px;
